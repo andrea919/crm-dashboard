@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Forza l'app a occupare tutta l'altezza, risolvendo il glitch del resize */
+html, body, #root, .app-wrapper {
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* Assicura che il contenuto principale copra lo spazio rimanente */
+.app-main {
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
