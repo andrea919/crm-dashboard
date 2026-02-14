@@ -1,9 +1,22 @@
 import React from "react";
+import { PageHeader } from "../layout/PageHeader";
 import { User, Shield, Key } from "lucide-react";
 
-export default function Account() {
+export default function Account(onClickMenu) {
+
+
     return (
-        <div className="max-w-xl mx-auto space-y-6 mt-8">
+        <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
+
+            <PageHeader
+                title="Il Tuo Account"
+                description="Gestisci le impostazioni del tuo profilo, le preferenze di sicurezza e i permessi del team."
+                onMenuClick={onClickMenu}
+                onActionClick={() => console.log("Action Clicked")}
+                actionLabel="Modifica Profilo"
+            />
+
+
             <div className="text-center">
                 <div className="w-20 h-20 bg-slate-200 rounded-full mx-auto flex items-center justify-center text-slate-400 mb-4 border-4 border-white shadow-lg">
                     <User size={40} />

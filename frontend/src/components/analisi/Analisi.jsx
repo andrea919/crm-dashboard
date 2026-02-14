@@ -1,10 +1,17 @@
 import React from "react";
+import { PageHeader } from "../layout/PageHeader";
 import { BarChart3, TrendingUp, Users } from "lucide-react";
 
 export default function Analyze() {
     return (
-        <div className="space-y-6">
-            <h1 className="text-2xl font-bold text-slate-900">Analisi Avanzata</h1>
+        <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
+
+            <PageHeader
+                title="Analisi e Report"
+                description="Esplora i dati e le performance delle tue campagne per prendere decisioni informate."
+                onMenuClick={() => console.log("Menu Clicked")}
+                onActionClick={() => console.log("Action Clicked")}
+            />
 
             {/* KPI Finti */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -48,6 +55,6 @@ export default function Analyze() {
                 <p className="text-slate-400 font-medium">Qui verrà caricato il report dettagliato del mese.</p>
                 <button className="mt-4 text-blue-600 text-sm hover:underline">Scarica PDF Simulato</button>
             </div>
-        </div>
+        </div >
     );
 }

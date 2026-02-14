@@ -1,9 +1,23 @@
 import React from "react";
+import { PageHeader } from "../layout/PageHeader";
 
-export default function Settings() {
+export default function Settings(onMenuClick) {
+
+    const handleNewSettings = () => {
+        console.log("Create new operator");
+    };
+
     return (
-        <div className="space-y-8">
-            <h1 className="text-2xl font-bold text-slate-900">Impostazioni Generali</h1>
+        <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
+
+            <PageHeader
+                title="Impostazioni Generali"
+                description="Configura le preferenze del tuo account, le impostazioni di notifica e altre opzioni per personalizzare la tua esperienza."
+                onMenuClick={onMenuClick}
+                onActionClick={handleNewSettings}
+                actionLabel="Nuova Impostazione"
+            />
+
 
             <div className="w-full bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
                 <div>

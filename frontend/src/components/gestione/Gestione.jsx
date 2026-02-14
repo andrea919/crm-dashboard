@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { UserPlus, Trash2, Key, Shield, User, X, Check } from "lucide-react";
+import { PageHeader } from "../layout/PageHeader";
 
 // Dati iniziali fittizi
 const initialUsers = [
@@ -8,7 +9,7 @@ const initialUsers = [
     { id: 3, name: "Luca Bianchi", email: "l.bianchi@hq60.com", role: "Operatore", status: "Sospeso", lastAccess: "10 Feb 2024" },
 ];
 
-export default function Team() {
+export default function Team(onMenuClick) {
     const [users, setUsers] = useState(initialUsers);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -20,6 +21,9 @@ export default function Team() {
         if (window.confirm("Sei sicuro di voler eliminare questo account?")) {
             setUsers(users.filter((user) => user.id !== id));
         }
+    };
+    const handleNewOperator = () => {
+        console.log("Create new promotion template");
     };
 
     // Funzione per salvare il nuovo utente
@@ -38,22 +42,15 @@ export default function Team() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
 
-            {/* Intestazione */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div>
-                    <h1 className="text-2xl font-bold text-slate-900">Gestione Team & Accessi</h1>
-                    <p className="text-slate-500 mt-1">Gestisci gli operatori, crea account e resetta le password.</p>
-                </div>
-                <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 shadow-md flex items-center gap-2 transition-colors"
-                >
-                    <UserPlus size={18} />
-                    Nuovo Operatore
-                </button>
-            </div>
+            <PageHeader
+                title="Gestione Operatori"
+                description="Aggiungi, modifica o rimuovi gli operatori che gestiscono le tue campagne."
+                onMenuClick={onMenuClick}
+                onActionClick={handleNewOperator}
+                actionLabel="Nuovo Operatore"
+            />
 
             {/* Tabella Utenti */}
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
@@ -83,8 +80,8 @@ export default function Team() {
                                 </td>
                                 <td className="p-4">
                                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${user.role === 'Admin'
-                                            ? 'bg-purple-50 text-purple-700 border-purple-100'
-                                            : 'bg-slate-100 text-slate-600 border-slate-200'
+                                        ? 'bg-purple-50 text-purple-700 border-purple-100'
+                                        : 'bg-slate-100 text-slate-600 border-slate-200'
                                         }`}>
                                         {user.role === 'Admin' ? <Shield size={12} /> : null}
                                         {user.role}

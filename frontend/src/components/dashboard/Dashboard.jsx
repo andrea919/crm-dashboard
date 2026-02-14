@@ -1,88 +1,93 @@
-import React from "react";
-import { Menu, Plus } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { PageHeader } from "../layout/PageHeader";
 import { StatCard } from "./stat-card";
-import { TransactionList } from "./transaction-list";
+import { TopStoresWidget } from "./TopStoresWidget";
 import { CampaignWidget } from "./campaign-widget";
 import { ActiveCardsChart } from "./ActiveCardsChart";
 import { GenderChart } from "./GenderChart";
 import { AgeChart } from "./AgeChart";
+import { fetchDashboardData } from "../../services/dashboardService";
+import { Loader2 } from "lucide-react";
 
-const statsData = [
-  { title: "Clienti Totali", value: "2,543", change: "+12.5%", iconName: "Users", color: "text-blue-600 bg-blue-50" },
-  { title: "Punti Erogati", value: "145k", change: "+8.2%", iconName: "Activity", color: "text-purple-600 bg-purple-50" },
-  { title: "Fatturato Loyalty", value: "€ 12,450", change: "+23.1%", iconName: "CreditCard", color: "text-emerald-600 bg-emerald-50" },
-  { title: "Churn Rate", value: "2.4%", change: "-0.5%", iconName: "TrendingUp", color: "text-orange-600 bg-orange-50", isNegative: false },
-];
 
-const transactionsData = [
-  { id: "1", customerName: "Mario Rossi", store: "Milano Centro", amount: 45.00, points: 45, initials: "MR" },
-  { id: "2", customerName: "Luigi Verdi", store: "Roma Termini", amount: 120.50, points: 120, initials: "LV" },
-  { id: "3", customerName: "Anna Bianchi", store: "Online Store", amount: 15.00, points: 15, initials: "AB" },
-  { id: "4", customerName: "Giulia Neri", store: "Napoli", amount: 200.00, points: 200, initials: "GN" },
-];
+export default function Dashboard() {
 
-const campaignsData = [
-  { id: "1", name: "Passaparola 2026", status: "Active", progress: 78, color: "bg-blue-600" },
-  { id: "2", name: "Doppi Punti Weekend", status: "Ending Soon", progress: 92, color: "bg-purple-600" },
-];
+  const [stats, setStats] = useState([]);
+  const [topStores, setTopStores] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
+  const [chartsData, setChartsData] = useState({ customerChart: [] });
+  const [companyName, setCompanyName] = useState("La tua azienda");
 
-export default function Dashboard({ onMenuClick }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await fetchDashboardData();
+
+        setStats(data.stats || []);
+        setTopStores(data.topStores || []);
+        setCampaigns(data.campaigns || []);
+        setCompanyName(data.companyName || "La tua azienda");
+        setChartsData({ customerChart: data.customerChart || [] });
+
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  const handleNewPromotion = () => {
+    // Logica per creare una nuova promozione
+    console.log("Creazione nuova promozione...");
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[80vh] w-full items-center justify-center">
+        <div className="flex flex-col items-center gap-2 text-slate-500">
+          <Loader2 className="animate-spin text-blue-600" size={40} />
+          <p>Caricamento dati...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto space-y-8 pb-10">
+    <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
 
-      <header className="flex items-center justify-between py-2 md:py-0">
-
-        <div className="flex items-center gap-4">
-          <button
-            onClick={onMenuClick}
-            className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 md:hidden shadow-sm"
-          >
-            <Menu size={24} />
-          </button>
-
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
-              Dashboard
-            </h1>
-            <p className="text-slate-500 mt-1 hidden md:block">
-              Panoramica delle performance in tempo reale.
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <button className="flex md:hidden bg-slate-900 text-white p-2.5 rounded-lg shadow-lg">
-            <Plus size={24} />
-          </button>
-
-          <button className="hidden md:block bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-lg shadow-slate-200">
-            + Nuova Promozione
-          </button>
-        </div>
-
-      </header>
+      {/* HEADER STANDARD MODULARE */}
+      <PageHeader
+        title={`Dashboard - ${companyName}`}
+        description="Panoramica delle performance in tempo reale."
+        onActionClick={handleNewPromotion}
+        actionLabel="Nuova Promozione"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {statsData.map((stat, index) => (
+        {stats.map((stat, index) => (
           <StatCard key={index} stat={stat} />
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
-        <div className="lg:col-span-2">
-          <TransactionList transactions={transactionsData} />
+        <div className="lg:col-span-2 h-96">
+          <TopStoresWidget stores={topStores} />
         </div>
 
         <div className="lg:col-span-1">
-          <CampaignWidget campaigns={campaignsData} />
+          <CampaignWidget campaigns={campaigns} />
         </div>
 
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
         <div className="lg:col-span-2">
-          <ActiveCardsChart />
+          <ActiveCardsChart data={chartsData.customerChart} />
         </div>
 
         <div>

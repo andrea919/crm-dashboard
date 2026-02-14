@@ -1,42 +1,102 @@
-import React from "react";
-import { Play, Pause, Clock } from "lucide-react";
 
-const automations = [
-    { id: 1, name: "Email di Benvenuto", trigger: "Nuova Iscrizione", status: "active" },
-    { id: 2, name: "Buon Compleanno", trigger: "Data di Nascita", status: "active" },
-    { id: 3, name: "Recupero Carrello", trigger: "Carrello Abbandonato > 24h", status: "paused" },
-    { id: 4, name: "Win-back Clienti Persi", trigger: "Nessun acquisto > 90gg", status: "active" },
+import React, { useState } from "react";
+import { Plus } from "lucide-react";
+import { PageHeader } from "../layout/PageHeader";
+import AutomationCard from "./AutomationCard";
+import AddCard from "./addCard";
+
+
+
+export const initialAutomations = [
+    {
+        id: 1,
+        name: "Auguri di Compleanno",
+        active: true,
+        trigger: "Giorno del compleanno",
+        action: "Invia Email",
+        templateName: "Buon Compleanno Classic",
+        stats: { sentToday: 3 }
+    },
+    {
+        id: 2,
+        name: "Recupero Carrello",
+        active: true,
+        trigger: "Abbandono checkout (1h)",
+        action: "Invia SMS",
+        templateName: "Hai dimenticato qualcosa?",
+        stats: { sentToday: 1 }
+    },
+    {
+        id: 3,
+        name: "Benvenuto Nuovi Clienti",
+        active: false,
+        trigger: "Nuova registrazione",
+        action: "Invia WhatsApp",
+        templateName: "Welcome Pack 2025",
+        stats: { sentToday: 0 }
+    }
 ];
 
-export default function Automations() {
+
+export default function AutomationsView() {
+    const [automations, setAutomations] = useState(initialAutomations);
+
+    // --- LOGICA DI BUSINESS ---
+    const handleToggle = (id) => {
+        setAutomations((prev) =>
+            prev.map((auto) =>
+                auto.id === id ? { ...auto, active: !auto.active } : auto
+            )
+        );
+    };
+
+    const handleDelete = (id) => {
+
+        if (window.confirm("Sei sicuro di voler eliminare questo automatismo?")) {
+            setAutomations((prev) => prev.filter((auto) => auto.id !== id));
+        }
+    };
+
+    const handleEdit = (id) => {
+        console.log(`Open modal for ID: ${id}`);
+    };
+
+    const handleAddNew = () => {
+        console.log("Create new automation flow");
+    };
+
+    const onMenuClick = () => {
+        console.log("Menu Clicked");
+    };
+
+
+    // --- RENDER ---
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-slate-900">Automatismi</h1>
-                <button className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-slate-800">
-                    + Nuovo Flusso
-                </button>
-            </div>
+        <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
 
-            <div className="grid gap-4">
-                {automations.map((item) => (
-                    <div key={item.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className={`p-3 rounded-full ${item.status === 'active' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
-                                <Clock size={20} />
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-slate-800">{item.name}</h3>
-                                <p className="text-sm text-slate-500">Trigger: {item.trigger}</p>
-                            </div>
-                        </div>
+            <PageHeader
+                title="Automatismi"
+                description="Crea e gestisci flussi automatizzati per migliorare l'engagement e la fidelizzazione dei tuoi clienti."
+                onMenuClick={onMenuClick}
+                onActionClick={handleAddNew}
+                actionLabel="Nuova Promozione"
+            />
 
-                        <button className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border ${item.status === 'active' ? 'border-slate-200 text-slate-600' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
-                            {item.status === 'active' ? <Pause size={14} /> : <Play size={14} />}
-                            {item.status === 'active' ? 'Metti in Pausa' : 'Attiva'}
-                        </button>
-                    </div>
+
+            {/* GRIGLIA */}
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {automations.map((auto) => (
+                    <AutomationCard
+                        key={auto.id}
+                        data={auto}
+                        onToggle={handleToggle}
+                        onDelete={handleDelete}
+                        onEdit={handleEdit}
+                    />
                 ))}
+
+                {/* Card per aggiungere nuovo elemento */}
+                <AddCard onClick={handleAddNew} />
             </div>
         </div>
     );

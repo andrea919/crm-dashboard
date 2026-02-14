@@ -1,12 +1,14 @@
-import { Users, CreditCard, Activity, TrendingUp } from "lucide-react";
+import { Users, CreditCard, Activity, TrendingUp, Gift } from "lucide-react";
 
 // Mappa per convertire stringa in icona
 const iconMap = {
   Users, CreditCard, Activity, TrendingUp
 };
 
+
+
 export function StatCard({ stat }) {
-  const Icon = iconMap[stat.iconName] || Activity; // Fallback se manca icona
+  const Icon = iconMap[stat.iconName] || Gift; // Fallback se manca icona
 
   return (
     <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200">
@@ -23,7 +25,10 @@ export function StatCard({ stat }) {
         <span className={`font-bold ${stat.isNegative ? 'text-red-500' : 'text-emerald-600'}`}>
           {stat.change}
         </span>
-        <span className="text-slate-400 ml-2">vs mese scorso</span>
+
+        <span className="text-slate-400 ml-2">
+           {stat.subtext}
+        </span>
       </div>
     </div>
   );

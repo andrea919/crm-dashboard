@@ -1,15 +1,17 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   Megaphone,
-  BarChart3, // Icona migliore per Analisi
-  Workflow,  // Icona migliore per Automatismi
+  BarChart3,
+  Workflow,
   CreditCard,
   Settings,
   LogOut,
   X,
-  BookOpen, // Per la documentazione
-  User      // Per l'account
+  BookText,
+  BookOpen,
+  User
 } from "lucide-react";
 
 const menuItems = [
@@ -17,6 +19,7 @@ const menuItems = [
   { name: "Campagne", icon: Megaphone, href: "/campaigns" },
   { name: "Analisi", icon: BarChart3, href: "/analyze" },
   { name: "Automatismi", icon: Workflow, href: "/automations" },
+  { name: "Modelli", icon: BookText, href: "/templates" },
   { name: "Gestione", icon: CreditCard, href: "/transactions" },
   { name: "Impostazioni", icon: Settings, href: "/settings" },
 ];
@@ -33,10 +36,13 @@ export default function Sidebar({ isOpen, onClose }) {
       {/* 2. LA SIDEBAR */}
       <aside
         className={`
-          fixed left-0 top-0 h-screen w-64 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 shadow-xl z-40
+          fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 shadow-xl
           transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
+          
+          /* --- MODIFICA FONDAMENTALE PER IL LAYOUT --- */
+          /* Su desktop diventa statica (non galleggia) e spinge il contenuto */
+          md:translate-x-0 md:static md:inset-auto
         `}
       >
         {/* Header Logo */}
@@ -50,32 +56,41 @@ export default function Sidebar({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Navigazione Principale (Scrollabile) */}
+        {/* Navigazione Principale */}
         <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto custom-scrollbar">
           {menuItems.map((item) => (
-            <a
+            // 2. USO NavLink AL POSTO DI <a>
+            <NavLink
               key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all hover:bg-slate-800 hover:text-white hover:pl-5 group"
+              to={item.href} // Si usa 'to', non 'href'
+              className={({ isActive }) => `
+                flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all group
+                ${isActive
+                  ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20" // Stile Attivo
+                  : "text-slate-400 hover:bg-slate-800 hover:text-white hover:pl-5" // Stile Inattivo
+                }
+              `}
             >
-              <item.icon size={20} className="text-slate-400 group-hover:text-white transition-colors" />
+              <item.icon size={20} className="shrink-0" />
               {item.name}
-            </a>
+            </NavLink>
           ))}
-
         </nav>
 
-        {/* Footer:  Account, Esci */}
+        {/* Footer */}
         <div className="p-4 border-t border-slate-800 bg-slate-950 space-y-2 shrink-0">
 
-
-          {/* Account */}
-          <a href="/account" className="flex items-center gap-3 w-full px-4 py-2 text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+          <NavLink
+            to="/account"
+            className={({ isActive }) => `
+              flex items-center gap-3 w-full px-4 py-2 text-sm font-medium rounded-lg transition-colors
+              ${isActive ? "bg-slate-800 text-white" : "text-slate-400 hover:text-white hover:bg-slate-800"}
+            `}
+          >
             <User size={18} />
             Account
-          </a>
+          </NavLink>
 
-          {/* Esci (Rosso) */}
           <button className="flex items-center gap-3 w-full px-4 py-2 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors mt-2">
             <LogOut size={18} />
             Esci
