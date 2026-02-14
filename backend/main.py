@@ -9,8 +9,10 @@ from retrieve.dashboard.retrieveCustomers import fetch_customer_chart
 
 app = FastAPI()
 
+load_dotenv()
 # in futuro questo arriverà dal JWT del login, per ora lo metto fisso
-CURRENT_COMPANY_ID = 'f11407b5-e88b-4aee-9f5e-ff5ab4b08e8b'
+CURRENT_COMPANY_ID = OS.getenv("CURRENT_COMPANY_ID")
+
 
 # Configurazione CORS (Per far parlare React con Python)
 # Dopo inserisco indirizzi specifici di deploy al posto di "*"
