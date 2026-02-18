@@ -1,16 +1,33 @@
-# React + Vite
+# CRM Dashboard - My Full-Stack Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a personal project I'm building to handle customer data and marketing automation. I wanted to move away from a simple frontend-only app and build something real, so I set up a **Monorepo** with a dedicated Python backend and a React frontend.
 
-Currently, two official plugins are available:
+## 🚀 What this does
+The goal is to stop guessing and start using data. The dashboard tracks how customers are behaving and lets you set up marketing "automations" based on those insights.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Real-time Stats**: I've got widgets for sales, active cards, and store performance.
+* **Marketing Campaigns**: A dedicated area to manage and track different marketing pushes.
+* **Automation Engine**: This is the "smart" part—triggering actions (like adding cards) based on customer metrics.
+* **Clean Architecture**: The backend is modular, so adding a new analytics script doesn't break everything else.
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## 🛠 The Stack
+* **Frontend**: React + Vite (for speed) + Tailwind CSS (for the UI).
+* **Backend**: FastAPI. I chose it because it's fast, modern, and handles the API logic perfectly.
+* **Testing**: Using Vitest to make sure my components don't break when I update the logic.
+* **Environment**: Everything sensitive is handled via `.env` files. No hardcoded IDs in the repo.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🏗 How it's structured
+I've split the project into two main folders:
+1.  `/frontend`: All the React components and UI logic.
+2.  `/backend`: The Python server, database connections, and all the retrieval scripts (check out the `/retrieve` folder to see how I'm pulling the dashboard data).
+
+
+
+## ⚡️ Quick Start
+
+**1. Clone it**
+```bash
+git clone [https://github.com/andrea919/crm-dashboard.git](https://github.com/andrea919/crm-dashboard.git)
+cd crm-dashboard
