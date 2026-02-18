@@ -1,4 +1,4 @@
-from db_connect import get_db_connection
+from core.database import get_db_connection
 from datetime import datetime, timedelta
 
 def fetch_customer_chart(company_id):

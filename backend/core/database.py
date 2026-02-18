@@ -12,10 +12,10 @@ def get_db_connection():
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PASSWORD"),
             host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT"),
+            port=os.getenv("DB_PORT", "5342"),
             cursor_factory=RealDictCursor
         )
         return conn
     except Exception as e:
-        print(f"❌ Errore connessione DB: {e}")
+        print(f"❌ Database connection failed: {error}")
         raise e

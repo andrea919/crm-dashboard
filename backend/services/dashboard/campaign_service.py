@@ -1,4 +1,4 @@
-from db_connect import get_db_connection
+from core.database import get_db_connection
 from datetime import datetime
 
 def fetch_campaigns(company_id):
