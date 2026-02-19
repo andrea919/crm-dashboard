@@ -1,16 +1,18 @@
 import React from "react";
 import { MoreHorizontal, Mail, MessageSquare, MessageCircle } from "lucide-react";
 
-// --- SOTTO-COMPONENTI (Badge e Icone) ---
 const StatusBadge = ({ status }) => {
     const s = status ? status.toLowerCase() : "";
-    let styles = "bg-slate-100 text-slate-600";
-    if (s === "inviata" || s === "active") styles = "bg-emerald-100 text-emerald-700 border-emerald-200";
-    else if (s === "pianificata" || s === "scheduled") styles = "bg-blue-100 text-blue-700 border-blue-200";
+    let styles = "bg-slate-100 text-slate-600"; // Default per Draft
+
+    if (s === "sent" || s === "active") styles = "bg-emerald-100 text-emerald-700 border-emerald-200";
+    else if (s === "scheduled") styles = "bg-blue-100 text-blue-700 border-blue-200";
+
+    const label = s.charAt(0).toUpperCase() + s.slice(1);
 
     return (
         <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border ${styles}`}>
-            {status}
+            {label}
         </span>
     );
 };
@@ -23,34 +25,32 @@ const TypeIcon = ({ type }) => {
     return <span>{type}</span>;
 };
 
-// --- COMPONENTE TABELLA FIXATO ---
+// --- Table fixed  ---
 export const CampaignsTable = ({ data }) => {
     return (
-        // FIX 1: 'min-w-0' è fondamentale dentro le griglie CSS/Flex per permettere lo shrinking
-        // FIX 2: 'w-full' forza il riempimento dello spazio disponibile
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col w-full min-w-0">
 
             {/* HEADER */}
             <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-white rounded-t-xl">
-                <h3 className="font-bold text-slate-800 whitespace-nowrap">Panoramica Attività</h3>
-                <button className="text-sm text-blue-600 font-medium hover:underline whitespace-nowrap ml-4">Vedi tutte</button>
+                <h3 className="font-bold text-slate-800 whitespace-nowrap">Activity Overview</h3>
+                <button className="text-sm text-blue-600 font-medium hover:underline whitespace-nowrap ml-4">View All</button>
             </div>
 
             {/* CONTAINER SCROLL:
-          - block: evita comportamenti strani del flex
-          - overflow-x-auto: abilita lo scroll
-          - max-w-full: assicura che non superi mai il genitore
+          - block: avoids the table trying to shrink to fit content and breaking layout
+          - overflow-x-auto: abilitates horizontal scrolling when content is wider than container
+          - max-w-full: ensures the container doesn't exceed the width of its parent, allowing the scroll to work properly
       */}
-            <div className="block w-full overflow-x-auto max-w-full">
+            <div className="block w-full max-w-full">
                 <table className="w-full text-left text-sm text-slate-600 whitespace-nowrap">
                     <thead className="bg-slate-50 text-xs uppercase font-semibold text-slate-500">
                         <tr>
-                            <th className="px-6 py-4 min-w-[200px]">Nome Campagna</th>
-                            <th className="px-6 py-4 min-w-[120px]">Tipo</th>
-                            <th className="px-6 py-4 min-w-[120px]">Stato</th>
-                            <th className="px-6 py-4 text-center min-w-[100px]">Destinatari</th>
+                            <th className="px-6 py-4 min-w-[200px]">Campaign Name</th>
+                            <th className="px-6 py-4 min-w-[120px]">Type</th>
+                            <th className="px-6 py-4 min-w-[120px]">Status</th>
+                            <th className="px-6 py-4 text-center min-w-[100px]">Recipients</th>
                             <th className="px-6 py-4 min-w-[200px]">Performance</th>
-                            <th className="px-6 py-4 text-right">Azioni</th>
+                            <th className="px-6 py-4 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">

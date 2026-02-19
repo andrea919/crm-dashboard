@@ -7,7 +7,7 @@ def fetch_company(company_id):
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # da sostituire quando avrò il login
+        # to replace with ORM call in the future, but for now we keep it simple with raw SQL
         query = """
             SELECT name FROM companies WHERE id = %s
         """

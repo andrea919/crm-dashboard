@@ -1,6 +1,6 @@
 import { Users, CreditCard, Activity, TrendingUp, Gift } from "lucide-react";
 
-// Mappa per convertire stringa in icona
+// Map string names to icon components
 const iconMap = {
   Users, CreditCard, Activity, TrendingUp
 };
@@ -8,7 +8,7 @@ const iconMap = {
 
 
 export function StatCard({ stat }) {
-  const Icon = iconMap[stat.iconName] || Gift; // Fallback se manca icona
+  const Icon = iconMap[stat.iconName] || Gift; // Fallback icon if missing
 
   return (
     <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200">
@@ -27,7 +27,7 @@ export function StatCard({ stat }) {
         </span>
 
         <span className="text-slate-400 ml-2">
-           {stat.subtext}
+          {stat.subtext}
         </span>
       </div>
     </div>

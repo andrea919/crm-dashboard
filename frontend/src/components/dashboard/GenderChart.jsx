@@ -1,17 +1,17 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
-const data = [
+const defaultData = [
     { name: 'N.D.', value: 489 },
     { name: 'F', value: 74 },
     { name: 'M', value: 100 },
 ];
 const COLORS = ['#94a3b8', '#ec4899', '#3b82f6'];
 
-export function GenderChart() {
+export function GenderChart({ data = defaultData }) {
     return (
         <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm h-[350px]">
-            <h3 className="font-bold text-lg text-slate-800 mb-4">Clienti per Sesso</h3>
+            <h3 className="font-bold text-lg text-slate-800 mb-4">Customers by Gender</h3>
             <div className="h-[280px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>

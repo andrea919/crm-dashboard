@@ -16,24 +16,23 @@ import {
 
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/" },
-  { name: "Campagne", icon: Megaphone, href: "/campaigns" },
-  { name: "Analisi", icon: BarChart3, href: "/analyze" },
-  { name: "Automatismi", icon: Workflow, href: "/automations" },
-  { name: "Modelli", icon: BookText, href: "/templates" },
-  { name: "Gestione", icon: CreditCard, href: "/transactions" },
-  { name: "Impostazioni", icon: Settings, href: "/settings" },
+  { name: "Campaigns", icon: Megaphone, href: "/campaigns" },
+  { name: "Analytics", icon: BarChart3, href: "/analyze" },
+  { name: "Automations", icon: Workflow, href: "/automations" },
+  { name: "Templates", icon: BookText, href: "/templates" },
+  { name: "Managment", icon: CreditCard, href: "/transactions" },
+  { name: "Settings", icon: Settings, href: "/settings" },
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
   return (
     <>
-      {/* 1. OVERLAY SCURO (Solo Mobile) */}
       <div
         onClick={onClose}
         className={`fixed inset-0 bg-black/50 z-30 transition-opacity md:hidden ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       />
 
-      {/* 2. LA SIDEBAR */}
+      {/*  SIDEBAR */}
       <aside
         className={`
           fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 shadow-xl
@@ -56,13 +55,11 @@ export default function Sidebar({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Navigazione Principale */}
         <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto custom-scrollbar">
           {menuItems.map((item) => (
-            // 2. USO NavLink AL POSTO DI <a>
             <NavLink
               key={item.href}
-              to={item.href} // Si usa 'to', non 'href'
+              to={item.href}
               className={({ isActive }) => `
                 flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all group
                 ${isActive
@@ -93,7 +90,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
           <button className="flex items-center gap-3 w-full px-4 py-2 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors mt-2">
             <LogOut size={18} />
-            Esci
+            Logout
           </button>
 
         </div>

@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { PageHeader } from "../layout/PageHeader";
-import { StatCard } from "./stat-card";
-import { TopStoresWidget } from "./TopStoresWidget";
-import { CampaignWidget } from "./campaign-widget";
-import { ActiveCardsChart } from "./ActiveCardsChart";
-import { GenderChart } from "./GenderChart";
-import { AgeChart } from "./AgeChart";
-import { fetchDashboardData } from "../../services/dashboardService";
+import { PageHeader } from "../components/layout/PageHeader";
+import { StatCard } from "../components/dashboard/StatCard";
+import { TopStoresWidget } from "../components/dashboard/TopStoresWidget";
+import { CampaignWidget } from "../components/dashboard/CampaignWidget";
+import { ActiveCardsChart } from "../components/dashboard/ActiveCardsChart";
+import { GenderChart } from "../components/dashboard/GenderChart";
+import { AgeChart } from "../components/dashboard/AgeChart";
+import { fetchDashboardData } from "../services/dashboardService";
 import { Loader2 } from "lucide-react";
 
 
-export default function Dashboard() {
+export default function DashboardPage() {
 
   const [stats, setStats] = useState([]);
   const [topStores, setTopStores] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
   const [chartsData, setChartsData] = useState({ customerChart: [] });
-  const [companyName, setCompanyName] = useState("La tua azienda");
+  const [companyName, setCompanyName] = useState("Your Company");
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +28,7 @@ export default function Dashboard() {
         setStats(data.stats || []);
         setTopStores(data.topStores || []);
         setCampaigns(data.campaigns || []);
-        setCompanyName(data.companyName || "La tua azienda");
+        setCompanyName(data.companyName || "Your Company");
         setChartsData({ customerChart: data.customerChart || [] });
 
       } catch (error) {
@@ -42,8 +42,8 @@ export default function Dashboard() {
   }, []);
 
   const handleNewPromotion = () => {
-    // Logica per creare una nuova promozione
-    console.log("Creazione nuova promozione...");
+    // Logic to create new customer
+    console.log("Creating new customer...");
   };
 
   if (isLoading) {
@@ -51,7 +51,7 @@ export default function Dashboard() {
       <div className="flex h-[80vh] w-full items-center justify-center">
         <div className="flex flex-col items-center gap-2 text-slate-500">
           <Loader2 className="animate-spin text-blue-600" size={40} />
-          <p>Caricamento dati...</p>
+          <p>Loading data...</p>
         </div>
       </div>
     );
@@ -60,10 +60,10 @@ export default function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
 
-      {/* HEADER STANDARD MODULARE */}
+      {/* HEADER STANDARD */}
       <PageHeader
         title={`Dashboard - ${companyName}`}
-        description="Panoramica delle performance in tempo reale."
+        description="Real-time performance overview."
         onActionClick={handleNewPromotion}
         actionLabel="Nuova Promozione"
       />
@@ -89,6 +89,7 @@ export default function Dashboard() {
         <div className="lg:col-span-2">
           <ActiveCardsChart data={chartsData.customerChart} />
         </div>
+
 
         <div>
           <GenderChart />

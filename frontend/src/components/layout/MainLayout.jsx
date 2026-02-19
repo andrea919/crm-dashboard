@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../generali/Sidebar";
+import Sidebar from "./Sidebar";
 
 import { useSidebar } from "./SideBarContext";
 

@@ -7,7 +7,7 @@ export const PageHeader = ({
   description,
   onMenuClick,
   onActionClick,
-  actionLabel = "Nuovo"
+  actionLabel = "New Action"
 }) => {
   const { toggleSidebar } = useSidebar();
 
@@ -32,7 +32,7 @@ export const PageHeader = ({
         </button>
       </div>
 
-      {/* VERSIONE DESKTOP (uguale a prima) */}
+      {/* VERSIONE DESKTOP */}
       <div className="hidden md:flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-slate-900">{title}</h1>

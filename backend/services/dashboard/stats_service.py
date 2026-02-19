@@ -16,7 +16,6 @@ def fetch_stats(company_id):
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # --- 1. Clienti Totali ---
         cur.execute("SELECT COUNT(id) as count FROM customers WHERE company_id = %s", (company_id,))
         current_customers = cur.fetchone()['count']
         try:
@@ -30,10 +29,7 @@ def fetch_stats(company_id):
 
         customer_growth = calculate_percentage_change(current_customers, prev_month_customers)
 
-        # --- 2. FATTURATO (Soldi veri incassati) ---
-        # Sostituiamo i punti con la colonna 'amount' (Euro)
         
-        # A. Incasso Questo Mese
         cur.execute("""
             SELECT COALESCE(SUM(t.amount), 0) as total 
             FROM transactions t
@@ -44,7 +40,6 @@ def fetch_stats(company_id):
             
         revenue_this_month = cur.fetchone()['total'] # Es: 1540.50
 
-        # B. Incasso Mese Scorso
         cur.execute("""
             SELECT COALESCE(SUM(amount), 0) as total 
             FROM transactions 
@@ -53,9 +48,8 @@ def fetch_stats(company_id):
         """)
         revenue_last_month = cur.fetchone()['total']
 
-        # Calcoliamo la crescita del fatturato
         revenue_growth = calculate_percentage_change(revenue_this_month, revenue_last_month)
-        # --- 3. Compleanni Oggi ---
+
         cur.execute("""
             SELECT COUNT(id) as count FROM customers 
             WHERE EXTRACT(MONTH FROM birth_date) = EXTRACT(MONTH FROM CURRENT_DATE)
@@ -66,10 +60,8 @@ def fetch_stats(company_id):
         bday_percentage = "0%"
         if current_customers > 0:
             bday_pct_val = (birthdays_today / current_customers) * 100
-            # CORREZIONE QUI: Usiamo bday_pct_val, non churn_pct_val
             bday_percentage = f"{bday_pct_val:.1f}%"
 
-        # --- 4. A Rischio (> 90 giorni) ---
         cur.execute("""
             SELECT COUNT(id) as count FROM customers 
             WHERE last_visit_at < NOW() - INTERVAL '90 days'
@@ -81,7 +73,7 @@ def fetch_stats(company_id):
             churn_pct_val = (churn_risk / current_customers) * 100
             churn_percentage = f"{churn_pct_val:.1f}%"
 
-        # --- RETURN SOLO LISTA ---
+        # --- RETURN LIST ---
         return [
             { 
                 "title": "Clienti Totali", 

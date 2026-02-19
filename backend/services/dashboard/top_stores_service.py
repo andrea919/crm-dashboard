@@ -13,8 +13,6 @@ def fetch_top_stores(company_id):
 
         cur = conn.cursor()
 
-        # Podio dei 5 negozi più performanti in base al fatturato totale
-        # Utile per companies per tenere stores sotto controllo.
         query = """
             SELECT
                 s.name, 
@@ -33,7 +31,6 @@ def fetch_top_stores(company_id):
 
         results = []
         for row in rows:
-            # Convertiamo i dati per il frontend
             results.append({
                 "name": row['name'],
                 "count": row['trans_count'], 
@@ -44,6 +41,5 @@ def fetch_top_stores(company_id):
 
     except Exception as e:
         print(f"❌ Errore Top Stores: {e}")
-        return [] # Restituisce lista vuota se c'è un errore
-    finally:
+        return [] 
         if conn: conn.close()

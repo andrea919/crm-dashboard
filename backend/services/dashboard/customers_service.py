@@ -9,11 +9,10 @@ def fetch_customer_chart(company_id):
         
         cur = conn.cursor()
 
-        # Calcoliamo data di inizio (6 mesi fa)
+        # Starting date
         start_date = datetime.now() - timedelta(days=180)
 
-        # Query SEMPLIFICATA per evitare errori di Timezone/Tipi
-        # Raggruppa per Anno-Mese (es: "2024-02")
+
         query = """
             SELECT 
                 TO_CHAR(created_at, 'Mon') as month_name,
@@ -33,23 +32,18 @@ def fetch_customer_chart(company_id):
         print(f"--- DEBUG SQL OUTPUT ({len(rows)} righe) ---")
         
         for row in rows:
-            # DEBUG: Vediamo esattamente cosa arriva
             print(f"Riga Grezza: {row}")
 
-            # GESTIONE ROBUSTA:
-            # Proviamo a leggere come Dizionario, se fallisce proviamo come Tupla (Indici)
             try:
-                # Caso 1: RealDictCursor (Dizionario)
                 m_name = row['month_name']
                 count_val = row['total']
             except (TypeError, KeyError):
-                # Caso 2: Cursore Standard (Tupla) -> [0] è month_name, [1] è total
                 m_name = row[0]
                 count_val = row[1]
 
             trend_data.append({
-                "name": m_name,       # Es: "Feb"
-                "active": int(count_val) # Forziamo a intero
+                "name": m_name,       
+                "active": int(count_val) 
             })
 
         print(f"--- DATI INVIATI AL FRONTEND: {trend_data} ---")
