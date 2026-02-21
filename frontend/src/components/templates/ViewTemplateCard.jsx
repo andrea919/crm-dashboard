@@ -3,7 +3,6 @@ import { Mail, MessageSquare, Smartphone, Edit, Trash2, Copy } from "lucide-reac
 
 const TemplateCard = ({ data, onEdit, onDelete, onDuplicate }) => {
 
-    // Configurazione icone e colori per canale
     const channelConfig = {
         sms: {
             icon: Smartphone,
@@ -28,13 +27,13 @@ const TemplateCard = ({ data, onEdit, onDelete, onDuplicate }) => {
         }
     };
 
-    const config = channelConfig[data.channel];
+    const config = channelConfig[data.channel] || channelConfig.email; // Fallback 
     const Icon = config.icon;
 
     return (
         <div className={`group flex flex-col justify-between rounded-2xl border bg-white p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${config.border}`}>
 
-            {/* HEADER: Nome e Badge Canale */}
+            {/* HEADER: Name and Channel Badge */}
             <div className="flex items-start justify-between p-5 pb-3">
                 <div>
                     <div className={`mb-2 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${config.bg} ${config.color}`}>
@@ -44,11 +43,11 @@ const TemplateCard = ({ data, onEdit, onDelete, onDuplicate }) => {
                     <h3 className="text-lg font-bold text-slate-800 line-clamp-1" title={data.name}>
                         {data.name}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-1">Modificato: {data.lastModified}</p>
+                    <p className="text-xs text-slate-400 mt-1">Edited: {data.lastModified}</p>
                 </div>
             </div>
 
-            {/* BODY: Preview Contenuto */}
+            {/* BODY */}
             <div className="flex-1 px-5 py-2">
                 {data.channel === 'email' ? (
                     // Preview Visuale per Email
@@ -62,7 +61,7 @@ const TemplateCard = ({ data, onEdit, onDelete, onDuplicate }) => {
                         )}
                     </div>
                 ) : (
-                    // Chat Bubble per SMS/WhatsApp
+                    // Chat Bubble for SMS/WhatsApp
                     <div className={`relative rounded-lg p-4 text-sm font-medium leading-relaxed text-slate-600 ${config.bg}`}>
                         <p className="line-clamp-3">
                             {data.content.split(/(\$\{.*?\})/).map((part, index) =>
@@ -80,13 +79,13 @@ const TemplateCard = ({ data, onEdit, onDelete, onDuplicate }) => {
                 )}
             </div>
 
-            {/* FOOTER: Statistiche e Azioni */}
+            {/* FOOTER: Statistics */}
             <div className="mt-4 flex items-center justify-between border-t border-slate-50 bg-slate-50/50 px-5 py-3 rounded-b-2xl">
 
-                {/* Info contestuali (Caratteri per SMS, OpenRate per Email) */}
+                {/* Contextual info */}
                 <div className="text-xs font-medium text-slate-500">
                     {data.channel === 'sms' && (
-                        <span>{data.stats.chars} caratteri <span className="text-slate-300 mx-1">|</span> {data.stats.segments} SMS</span>
+                        <span>{data.stats.chars} characters <span className="text-slate-300 mx-1">|</span> {data.stats.segments} SMS</span>
                     )}
                     {data.channel === 'email' && (
                         <span className="text-blue-600">Open Rate: {data.stats.openRate}</span>

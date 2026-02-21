@@ -17,10 +17,10 @@ import {
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/" },
   { name: "Campaigns", icon: Megaphone, href: "/campaigns" },
-  { name: "Analytics", icon: BarChart3, href: "/analyze" },
+  { name: "Analytics", icon: BarChart3, href: "/analytics" },
   { name: "Automations", icon: Workflow, href: "/automations" },
   { name: "Templates", icon: BookText, href: "/templates" },
-  { name: "Managment", icon: CreditCard, href: "/transactions" },
+  { name: "Management", icon: CreditCard, href: "/management" },
   { name: "Settings", icon: Settings, href: "/settings" },
 ];
 

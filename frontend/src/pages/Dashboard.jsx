@@ -15,7 +15,7 @@ export default function DashboardPage() {
   const [stats, setStats] = useState([]);
   const [topStores, setTopStores] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
-  const [chartsData, setChartsData] = useState({ customerChart: [] });
+  const [chartsData, setChartsData] = useState({ customerChart: [], genderChart: [] });
   const [companyName, setCompanyName] = useState("Your Company");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +29,11 @@ export default function DashboardPage() {
         setTopStores(data.topStores || []);
         setCampaigns(data.campaigns || []);
         setCompanyName(data.companyName || "Your Company");
-        setChartsData({ customerChart: data.customerChart || [] });
+        setChartsData({
+          customerChart: data.customerChart || [],
+          genderChart: data.genderChart || []
+        });
+
 
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -65,7 +69,7 @@ export default function DashboardPage() {
         title={`Dashboard - ${companyName}`}
         description="Real-time performance overview."
         onActionClick={handleNewPromotion}
-        actionLabel="Nuova Promozione"
+        actionLabel="New Card"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -92,7 +96,7 @@ export default function DashboardPage() {
 
 
         <div>
-          <GenderChart />
+          <GenderChart data={chartsData.genderChart} />
         </div>
 
         <div>

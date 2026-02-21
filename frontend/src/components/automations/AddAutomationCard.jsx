@@ -11,9 +11,9 @@ const AddCard = ({ onClick }) => {
                 <Plus size={32} className="text-slate-400 transition-colors group-hover:text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold text-slate-600 transition-colors group-hover:text-blue-700">
-                Crea Nuovo Flusso
+                Create Automation
             </h3>
-            <p className="mt-1 text-sm text-slate-400">Imposta trigger e azioni</p>
+            <p className="mt-1 text-sm text-slate-400">Set up a new automated trigger for your customers.</p>
         </button>
     );
 };

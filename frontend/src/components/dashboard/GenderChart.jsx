@@ -1,10 +1,16 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
+const GENDER_COLORS = {
+    'Male': '#3b82f6',
+    'Female': '#ec4899',
+    'Unknown': '#94a3b8'
+};
+
 const defaultData = [
-    { name: 'N.D.', value: 489 },
-    { name: 'F', value: 74 },
-    { name: 'M', value: 100 },
+    { name: 'Unknown', value: 489 },
+    { name: 'Female', value: 74 },
+    { name: 'Male', value: 100 },
 ];
 const COLORS = ['#94a3b8', '#ec4899', '#3b82f6'];
 
@@ -15,9 +21,9 @@ export function GenderChart({ data = defaultData }) {
             <div className="h-[280px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                        <Pie data={data} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={5} dataKey="value">
+                        <Pie data={data} cx="40%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={5} dataKey="value">
                             {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                <Cell key={`cell-${index}`} fill={GENDER_COLORS[entry.name] || COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
                         <Tooltip />

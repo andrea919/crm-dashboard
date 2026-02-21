@@ -7,8 +7,11 @@ from services.dashboard.campaign_service import fetch_campaigns
 from services.dashboard.top_stores_service import fetch_top_stores
 from services.dashboard.company_service import fetch_company
 from services.dashboard.customers_service import fetch_customer_chart
+from services.dashboard.gender_chart import fetch_gender_chart
 
 load_dotenv()
+
+# In production this should be set via environment variables securely, not hardcoded
 CURRENT_COMPANY_ID = os.environ.get("CURRENT_COMPANY_ID")
 
 router = APIRouter()
@@ -33,3 +36,7 @@ def get_dashboard_top_stores():
 @router.get("/api/dashboard/customerChart")
 def get_dashboard_customers():
     return fetch_customer_chart(CURRENT_COMPANY_ID)
+
+@router.get("/api/dashboard/genderChart")
+def get_dashboard_gender_chart():
+    return fetch_gender_chart(CURRENT_COMPANY_ID)

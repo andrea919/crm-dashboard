@@ -46,7 +46,7 @@ const AutomationCard = ({ data, onToggle, onDelete, onEdit }) => {
                     <div className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-orange-50 text-orange-600" : "bg-slate-100 text-slate-400"}`}>
                         <Zap size={22} strokeWidth={2} />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Quando</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">When</span>
                     <p className="mt-0.5 text-sm font-semibold text-slate-700 leading-tight">{data.trigger}</p>
                 </div>
 
@@ -62,7 +62,7 @@ const AutomationCard = ({ data, onToggle, onDelete, onEdit }) => {
                     <div className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-blue-50 text-blue-600" : "bg-slate-100 text-slate-400"}`}>
                         <Send size={20} strokeWidth={2} className={isActive ? "ml-0.5" : ""} />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Allora</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Then</span>
                     <p className="mt-0.5 text-sm font-semibold text-slate-700 leading-tight">{data.action}</p>
                 </div>
             </div>
@@ -72,7 +72,7 @@ const AutomationCard = ({ data, onToggle, onDelete, onEdit }) => {
                 <div className="flex flex-col">
                     <span className="text-[10px] uppercase text-slate-400 font-bold">Performance 24h</span>
                     <span className="text-sm font-medium text-slate-700">
-                        {data.stats.sentToday} <span className="font-normal text-slate-500">invii</span>
+                        {data.stats.sentToday} <span className="font-normal text-slate-500">Sent</span>
                     </span>
                 </div>
 
@@ -80,14 +80,14 @@ const AutomationCard = ({ data, onToggle, onDelete, onEdit }) => {
                     <button
                         onClick={() => onEdit(data.id)}
                         className="group/btn flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 transition-colors hover:border-blue-300 hover:text-blue-600 hover:shadow-sm"
-                        title="Modifica"
+                        title="Edit"
                     >
                         <Edit size={16} />
                     </button>
                     <button
                         onClick={() => onDelete(data.id)}
                         className="group/btn flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 transition-colors hover:border-red-300 hover:text-red-600 hover:shadow-sm"
-                        title="Elimina"
+                        title="Delete"
                     >
                         <Trash2 size={16} />
                     </button>

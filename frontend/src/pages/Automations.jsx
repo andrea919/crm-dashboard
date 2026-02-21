@@ -1,47 +1,17 @@
 
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
-import { PageHeader } from "../layout/PageHeader";
-import AutomationCard from "./AutomationCard";
-import AddCard from "./addCard";
+import { PageHeader } from "../components/layout/PageHeader";
+import AutomationCard from "../components/automations/ViewAutomationCard";
+import AddCard from "../components/automations/AddAutomationCard";
+import { initialAutomations } from "../mocks/automationMocks";
 
-
-
-export const initialAutomations = [
-    {
-        id: 1,
-        name: "Auguri di Compleanno",
-        active: true,
-        trigger: "Giorno del compleanno",
-        action: "Invia Email",
-        templateName: "Buon Compleanno Classic",
-        stats: { sentToday: 3 }
-    },
-    {
-        id: 2,
-        name: "Recupero Carrello",
-        active: true,
-        trigger: "Abbandono checkout (1h)",
-        action: "Invia SMS",
-        templateName: "Hai dimenticato qualcosa?",
-        stats: { sentToday: 1 }
-    },
-    {
-        id: 3,
-        name: "Benvenuto Nuovi Clienti",
-        active: false,
-        trigger: "Nuova registrazione",
-        action: "Invia WhatsApp",
-        templateName: "Welcome Pack 2025",
-        stats: { sentToday: 0 }
-    }
-];
 
 
 export default function AutomationsView() {
     const [automations, setAutomations] = useState(initialAutomations);
 
-    // --- LOGICA DI BUSINESS ---
+    // BUSINESS LOGIC
     const handleToggle = (id) => {
         setAutomations((prev) =>
             prev.map((auto) =>
@@ -52,7 +22,7 @@ export default function AutomationsView() {
 
     const handleDelete = (id) => {
 
-        if (window.confirm("Sei sicuro di voler eliminare questo automatismo?")) {
+        if (window.confirm("Are you sure you want to delete this automation?")) {
             setAutomations((prev) => prev.filter((auto) => auto.id !== id));
         }
     };
@@ -75,15 +45,15 @@ export default function AutomationsView() {
         <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
 
             <PageHeader
-                title="Automatismi"
-                description="Crea e gestisci flussi automatizzati per migliorare l'engagement e la fidelizzazione dei tuoi clienti."
+                title="Automations"
+                description="Create and manage automated flows to improve engagement and customer loyalty."
                 onMenuClick={onMenuClick}
                 onActionClick={handleAddNew}
-                actionLabel="Nuova Promozione"
+                actionLabel="Create Automation"
             />
 
 
-            {/* GRIGLIA */}
+            {/* GRID */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {automations.map((auto) => (
                     <AutomationCard
@@ -95,7 +65,7 @@ export default function AutomationsView() {
                     />
                 ))}
 
-                {/* Card per aggiungere nuovo elemento */}
+                {/* Card to add new element */}
                 <AddCard onClick={handleAddNew} />
             </div>
         </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { PageHeader } from "../layout/PageHeader";
+import { PageHeader } from "../components/layout/PageHeader";
 import { User, Shield, Key } from "lucide-react";
 
 export default function Account(onClickMenu) {
@@ -9,11 +9,11 @@ export default function Account(onClickMenu) {
         <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
 
             <PageHeader
-                title="Il Tuo Account"
-                description="Gestisci le impostazioni del tuo profilo, le preferenze di sicurezza e i permessi del team."
+                title="Your Account"
+                description="Manage your profile settings, security preferences, and team permissions."
                 onMenuClick={onClickMenu}
                 onActionClick={() => console.log("Action Clicked")}
-                actionLabel="Modifica Profilo"
+                actionLabel="Edit Profile"
             />
 
 
@@ -22,7 +22,7 @@ export default function Account(onClickMenu) {
                     <User size={40} />
                 </div>
                 <h1 className="text-2xl font-bold text-slate-900">Admin User</h1>
-                <p className="text-slate-500">Amministratore Principale</p>
+                <p className="text-slate-500">Main Admin</p>
             </div>
 
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden divide-y divide-slate-100">
@@ -31,8 +31,8 @@ export default function Account(onClickMenu) {
                         <User size={20} />
                     </div>
                     <div className="flex-1">
-                        <h4 className="font-medium text-slate-900">Modifica Profilo</h4>
-                        <p className="text-xs text-slate-500">Nome, Email, Avatar</p>
+                        <h4 className="font-medium text-slate-900">Edit Profile</h4>
+                        <p className="text-xs text-slate-500">Name, Email, Avatar</p>
                     </div>
                 </button>
 
@@ -41,8 +41,8 @@ export default function Account(onClickMenu) {
                         <Key size={20} />
                     </div>
                     <div className="flex-1">
-                        <h4 className="font-medium text-slate-900">Cambia Password</h4>
-                        <p className="text-xs text-slate-500">Ultimo cambio: 30gg fa</p>
+                        <h4 className="font-medium text-slate-900">Change Password</h4>
+                        <p className="text-xs text-slate-500">Last changed: 30 days ago</p>
                     </div>
                 </button>
 
@@ -51,8 +51,8 @@ export default function Account(onClickMenu) {
                         <Shield size={20} />
                     </div>
                     <div className="flex-1">
-                        <h4 className="font-medium text-slate-900">Permessi e Ruoli</h4>
-                        <p className="text-xs text-slate-500">Gestisci accessi team</p>
+                        <h4 className="font-medium text-slate-900">Permissions and Roles</h4>
+                        <p className="text-xs text-slate-500">Manage team access</p>
                     </div>
                 </button>
             </div>

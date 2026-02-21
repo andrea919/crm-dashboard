@@ -8,12 +8,13 @@ export const fetchDashboardData = async () => {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-        const [statsRes, topStoresRes, campaignsRes, companyNameRes, customerChartRes] = await Promise.all([
+        const [statsRes, topStoresRes, campaignsRes, companyNameRes, customerChartRes, genderChartRes] = await Promise.all([
             fetch(`${API_URL}/dashboard/stats`, { signal: controller.signal }),
             fetch(`${API_URL}/dashboard/topStores`, { signal: controller.signal }),
             fetch(`${API_URL}/dashboard/campaigns`, { signal: controller.signal }),
             fetch(`${API_URL}/company/info`, { signal: controller.signal }),
-            fetch(`${API_URL}/dashboard/customerChart`, { signal: controller.signal })
+            fetch(`${API_URL}/dashboard/customerChart`, { signal: controller.signal }),
+            fetch(`${API_URL}/dashboard/genderChart`, { signal: controller.signal })
         ]);
 
         clearTimeout(timeoutId);
@@ -24,6 +25,7 @@ export const fetchDashboardData = async () => {
         const campaigns = campaignsRes.ok ? await campaignsRes.json() : [];
         const companyName = companyNameRes.ok ? await companyNameRes.json() || [] : "La tua azienda";
         const customerChart = customerChartRes.ok ? await customerChartRes.json() : {};
+        const genderChart = genderChartRes.ok ? await genderChartRes.json() : {};
 
         // Convert it to an array if it's not already
         const customerChartArray = customerChart.trend || [];
@@ -34,7 +36,9 @@ export const fetchDashboardData = async () => {
             topStores: Array.isArray(topStores) ? topStores : mockDashboardData.topStores || [],
             campaigns: Array.isArray(campaigns) ? campaigns : mockDashboardData.campaigns || [],
             companyName: companyName.name || mockDashboardData.companyName || "Your Company",
-            customerChart: Array.isArray(customerChartArray) ? customerChartArray : mockDashboardData.customerChart || []
+            customerChart: Array.isArray(customerChartArray) ? customerChartArray : mockDashboardData.customerChart || [],
+            genderChart: Array.isArray(genderChart) ? genderChart : mockDashboardData.genderChart || []
+
         };
 
     } catch (error) {
