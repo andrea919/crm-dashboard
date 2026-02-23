@@ -1,5 +1,8 @@
+import { AgeChart } from "../components/dashboard/AgeChart";
+import { GenderChart } from "../components/dashboard/GenderChart";
+
 export const mockDashboardData = {
-    companyName: "Global Retail Corp",
+    companyName: "Dashboard Demo Inc.",
     stats: [
         { title: "Total Customers", value: "12,845", iconName: "Users", color: "bg-blue-50 text-blue-600", change: "+12%", isNegative: false, subtext: "since last month" },
         { title: "Revenue", value: "$45,200", iconName: "TrendingUp", color: "bg-emerald-50 text-emerald-600", change: "+8%", isNegative: false, subtext: "vs target" },
@@ -19,5 +22,17 @@ export const mockDashboardData = {
     customerChart: [
         { name: 'Jan', active: 400 }, { name: 'Feb', active: 600 }, { name: 'Mar', active: 550 },
         { name: 'Apr', active: 800 }, { name: 'May', active: 950 }, { name: 'Jun', active: 1100 }
-    ]
+    ], 
+    genderChart: [
+        { name: 'Unknown', value: 489 },
+        { name: 'Female', value: 74 },
+        { name: 'Male', value: 100 },
+    ],
+    ageChart: [
+        { name: 'Under 20', value: 15 },
+        { name: '21-30', value: 14 },
+        { name: '31-40', value: 14 },
+        { name: '41-50', value: 14 },
+        { name: 'Over 50', value: 6 }
+    ],
 };

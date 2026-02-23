@@ -6,15 +6,16 @@ export const fetchDashboardData = async () => {
     try {
 
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 seconds timeout
 
-        const [statsRes, topStoresRes, campaignsRes, companyNameRes, customerChartRes, genderChartRes] = await Promise.all([
+        const [statsRes, topStoresRes, campaignsRes, companyNameRes, customerChartRes, genderChartRes, ageChartRes] = await Promise.all([
             fetch(`${API_URL}/dashboard/stats`, { signal: controller.signal }),
             fetch(`${API_URL}/dashboard/topStores`, { signal: controller.signal }),
             fetch(`${API_URL}/dashboard/campaigns`, { signal: controller.signal }),
             fetch(`${API_URL}/company/info`, { signal: controller.signal }),
             fetch(`${API_URL}/dashboard/customerChart`, { signal: controller.signal }),
-            fetch(`${API_URL}/dashboard/genderChart`, { signal: controller.signal })
+            fetch(`${API_URL}/dashboard/genderChart`, { signal: controller.signal }),
+            fetch(`${API_URL}/dashboard/ageChart`, { signal: controller.signal })
         ]);
 
         clearTimeout(timeoutId);
@@ -26,6 +27,7 @@ export const fetchDashboardData = async () => {
         const companyName = companyNameRes.ok ? await companyNameRes.json() || [] : "La tua azienda";
         const customerChart = customerChartRes.ok ? await customerChartRes.json() : {};
         const genderChart = genderChartRes.ok ? await genderChartRes.json() : {};
+        const ageChart = ageChartRes.ok ? await ageChartRes.json() : {};
 
         // Convert it to an array if it's not already
         const customerChartArray = customerChart.trend || [];
@@ -37,7 +39,8 @@ export const fetchDashboardData = async () => {
             campaigns: Array.isArray(campaigns) ? campaigns : mockDashboardData.campaigns || [],
             companyName: companyName.name || mockDashboardData.companyName || "Your Company",
             customerChart: Array.isArray(customerChartArray) ? customerChartArray : mockDashboardData.customerChart || [],
-            genderChart: Array.isArray(genderChart) ? genderChart : mockDashboardData.genderChart || []
+            genderChart: Array.isArray(genderChart) ? genderChart : mockDashboardData.genderChart || [],
+            ageChart: Array.isArray(ageChart) ? ageChart : mockDashboardData.ageChart || []
 
         };
 

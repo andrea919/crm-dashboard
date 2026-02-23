@@ -7,23 +7,16 @@ const GENDER_COLORS = {
     'Unknown': '#94a3b8'
 };
 
-const defaultData = [
-    { name: 'Unknown', value: 489 },
-    { name: 'Female', value: 74 },
-    { name: 'Male', value: 100 },
-];
-const COLORS = ['#94a3b8', '#ec4899', '#3b82f6'];
-
-export function GenderChart({ data = defaultData }) {
+export function GenderChart({ data = [] }) {
     return (
         <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm h-[350px]">
             <h3 className="font-bold text-lg text-slate-800 mb-4">Customers by Gender</h3>
             <div className="h-[280px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                        <Pie data={data} cx="40%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={5} dataKey="value">
+                        <Pie data={data} cx="40%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={5} dataKey="value" label={(entry) => `${entry.value}`} labelLine={false}>
                             {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={GENDER_COLORS[entry.name] || COLORS[index % COLORS.length]} />
+                                <Cell key={`cell-${index}`} fill={GENDER_COLORS[entry.name] || GENDER_COLORS[index % Object.keys(GENDER_COLORS).length]} />
                             ))}
                         </Pie>
                         <Tooltip />

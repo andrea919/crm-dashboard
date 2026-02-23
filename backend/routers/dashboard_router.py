@@ -8,6 +8,7 @@ from services.dashboard.top_stores_service import fetch_top_stores
 from services.dashboard.company_service import fetch_company
 from services.dashboard.customers_service import fetch_customer_chart
 from services.dashboard.gender_chart import fetch_gender_chart
+from services.dashboard.age_chart import fetch_age_chart
 
 load_dotenv()
 
@@ -40,3 +41,7 @@ def get_dashboard_customers():
 @router.get("/api/dashboard/genderChart")
 def get_dashboard_gender_chart():
     return fetch_gender_chart(CURRENT_COMPANY_ID)
+
+@router.get("/api/dashboard/ageChart")
+def get_dashboard_age_chart():
+    return fetch_age_chart(CURRENT_COMPANY_ID)

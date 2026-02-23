@@ -15,7 +15,7 @@ export default function DashboardPage() {
   const [stats, setStats] = useState([]);
   const [topStores, setTopStores] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
-  const [chartsData, setChartsData] = useState({ customerChart: [], genderChart: [] });
+  const [chartsData, setChartsData] = useState({ customerChart: [], genderChart: [], ageChart: [] });
   const [companyName, setCompanyName] = useState("Your Company");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +31,8 @@ export default function DashboardPage() {
         setCompanyName(data.companyName || "Your Company");
         setChartsData({
           customerChart: data.customerChart || [],
-          genderChart: data.genderChart || []
+          genderChart: data.genderChart || [],
+          ageChart: data.ageChart || []
         });
 
 
@@ -100,7 +101,7 @@ export default function DashboardPage() {
         </div>
 
         <div>
-          <AgeChart />
+          <AgeChart data={chartsData.ageChart} />
         </div>
       </div>
 
