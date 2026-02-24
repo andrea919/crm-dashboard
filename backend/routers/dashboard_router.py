@@ -7,9 +7,10 @@ from services.dashboard.campaign_service import fetch_campaigns
 from services.dashboard.top_stores_service import fetch_top_stores
 from services.dashboard.company_service import fetch_company
 from services.dashboard.customers_service import fetch_customer_chart
-from services.dashboard.gender_chart import fetch_gender_chart
-from services.dashboard.age_chart import fetch_age_chart
+from services.dashboard.gender_chart_service import fetch_gender_chart
+from services.dashboard.age_chart_service import fetch_age_chart
 
+from services.campaigns.campaign_service import fetch_campaigns_overview
 load_dotenv()
 
 # In production this should be set via environment variables securely, not hardcoded
@@ -17,7 +18,7 @@ CURRENT_COMPANY_ID = os.environ.get("CURRENT_COMPANY_ID")
 
 router = APIRouter()
 
-
+# Home page route
 @router.get("/api/company/info")
 def get_company_info():
     return fetch_company(CURRENT_COMPANY_ID)
@@ -45,3 +46,8 @@ def get_dashboard_gender_chart():
 @router.get("/api/dashboard/ageChart")
 def get_dashboard_age_chart():
     return fetch_age_chart(CURRENT_COMPANY_ID)
+
+# Campaigns page route
+@router.get("/api/campaigns/overview")
+def get_campaigns_overview():
+    return fetch_campaigns_overview(CURRENT_COMPANY_ID)

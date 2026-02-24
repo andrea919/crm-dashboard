@@ -45,7 +45,7 @@ export const fetchDashboardData = async () => {
         };
 
     } catch (error) {
-        console.error("Errore nel recupero dati:", error);
+        console.error("Error while retrieving dashboard data:", error);
         // If there is an error (like network issues), return mock data as fallback
         return mockDashboardData;
     }
