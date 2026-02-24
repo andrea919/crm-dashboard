@@ -3,23 +3,69 @@ import { MoreHorizontal, Mail, MessageSquare, MessageCircle } from "lucide-react
 import { StatusBadge } from "./CampaignStatusBadge";
 import { TypeIcon } from "./CampaignTypeIcon";
 
-// --- Table fixed  ---
 export const CampaignsTable = ({ data }) => {
     return (
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col w-full min-w-0">
+        <div className="flex flex-col w-full min-w-0 gap-6 mt-8">
 
-            {/* HEADER */}
-            <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-white rounded-t-xl">
-                <h3 className="font-bold text-slate-800 whitespace-nowrap">Activity Overview</h3>
-                <button className="text-sm text-blue-600 font-medium hover:underline whitespace-nowrap ml-4">View All</button>
+
+            <div className="flex flex-col gap-4 lg:hidden border border-slate-200 overflow-hidden border-white rounded-xl">
+                {/* HEADER */}
+                <div className="flex justify-between items-center px-4 py-3 ">
+                    <h3 className="font-bold text-slate-800 whitespace-nowrap">Activity Overview</h3>
+                    <button className="text-sm text-blue-600 font-medium hover:underline whitespace-nowrap ml-4">View All</button>
+                </div>
+
+                {data.map((campaign) => (
+                    <div key={campaign.id} className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4 w-full">
+
+                        <div className="flex justify-between items-start">
+                            <div className="space-y-1">
+                                <h4 className="font-bold text-slate-900 text-base leading-tight">
+                                    {campaign.name}
+                                </h4>
+                                <TypeIcon type={campaign.type} />
+                            </div>
+                            <StatusBadge status={campaign.status} />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 py-3 border-y border-slate-50">
+                            <div>
+                                <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Recipients</p>
+                                <p className="text-sm font-semibold text-slate-700">
+                                    {campaign.recipients > 0 ? campaign.recipients.toLocaleString() : "—"}
+                                </p>
+                            </div>
+                            <div>
+                                <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Performance</p>
+                                <p className="text-sm font-semibold text-slate-700">{campaign.performance}%</p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-4">
+                            <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div
+                                    className="h-full bg-blue-500 rounded-full"
+                                    style={{ width: `${campaign.performance}%` }}
+                                />
+                            </div>
+                            <button className="text-slate-400 p-1">
+                                <MoreHorizontal size={20} />
+                            </button>
+                        </div>
+                    </div>
+                ))}
             </div>
 
-            {/* CONTAINER SCROLL:
-          - block: avoids the table trying to shrink to fit content and breaking layout
-          - overflow-x-auto: abilitates horizontal scrolling when content is wider than container
-          - max-w-full: ensures the container doesn't exceed the width of its parent, allowing the scroll to work properly
-      */}
-            <div className="block w-full max-w-full">
+
+            <div className="hidden lg:block w-full max-w-full bg-white rounded-xl border border-slate-200 shadow-sm overflow-x-auto">
+
+                {/* HEADER */}
+                <div className="px-10 py-4 flex justify-between items-center ">
+                    <h3 className="font-bold text-slate-800 whitespace-nowrap">Activity Overview</h3>
+                    <button className="text-sm text-blue-600 font-medium hover:underline whitespace-nowrap ml-4">View All</button>
+                </div>
+
+
                 <table className="w-full text-left text-sm text-slate-600 whitespace-nowrap">
                     <thead className="bg-slate-50 text-xs uppercase font-semibold text-slate-500">
                         <tr>

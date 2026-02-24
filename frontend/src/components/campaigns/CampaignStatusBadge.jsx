@@ -3,7 +3,7 @@ import React from 'react';
 export const StatusBadge = ({ status }) => {
 
     const labels = {
-        active: "Inactive",
+        active: "Active",
         suspended: "Suspended",
         inactive: "Inactive"
     };

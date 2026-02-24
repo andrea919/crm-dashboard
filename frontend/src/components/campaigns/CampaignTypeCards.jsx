@@ -10,7 +10,7 @@ const iconMap = {
 };
 
 export const CampaignTypeCard = ({ type, onClick }) => {
-    const IconComponent = iconMap[type.icon];
+    const IconComponent = iconMap[type.icon] || Mail;
 
     return (
         <button

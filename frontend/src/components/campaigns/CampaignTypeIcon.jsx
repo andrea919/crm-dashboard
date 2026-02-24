@@ -7,7 +7,7 @@ export const TypeIcon = ({ type }) => {
 
     if (t === 'email') {
         return (
-            <div className="px-1 py-0.5 bg-purple-50 rounded-full text-purple-600 flex items-center justify-center">
+            <div className="px-1 py-0.5 bg-purple-50 rounded-full text-purple-600 inline-flex items-center justify-center">
                 <Mail size={18} />
                 <span className="pl-2 text-purple-600">Email</span>
             </div>
@@ -16,7 +16,7 @@ export const TypeIcon = ({ type }) => {
 
     if (t === 'sms') {
         return (
-            <div className="px-1 py-0.5 bg-blue-50 rounded-full text-blue-600 flex items-center justify-center">
+            <div className="px-1 py-0.5 bg-blue-50 rounded-full text-blue-600 inline-flex items-center justify-center">
                 <MessageSquare size={18} />
                 <span className="pl-2 text-blue-600">Sms</span>
             </div>
@@ -25,12 +25,14 @@ export const TypeIcon = ({ type }) => {
 
     if (t === 'whatsapp') {
         return (
-            <div className="px-1 py-0.5 bg-cyan-50 rounded-full text-cyan-600 flex items-center justify-center">
+            <div className="px-1 py-0.5 bg-cyan-50 rounded-full text-cyan-600 inline-flex items-center justify-center">
                 <MessageCircle size={18} />
-                <span className="pl-2 text-cyan-600">WApp</span>
+                <span className="pl-2 text-cyan-600">WhatsApp</span>
             </div>
         );
     }
 
-    return null;
+    return (
+        <span className="text-sm font-medium text-slate-500">{type || "N/D"}</span>
+    );
 };

@@ -7,6 +7,7 @@ import { StatusBadge } from "../components/campaigns/CampaignStatusBadge";
 import { TypeIcon } from "../components/campaigns/CampaignTypeIcon";
 import { campaignTypes, mockCampaignsList as mockData } from "../mocks/campaignMocks";
 import { fetchCampaignData } from "../services/campaignService";
+import { CampaingStatsChart } from "../components/campaigns/CampaignStatsChart";
 
 export default function CampaignsPage() {
 
@@ -60,8 +61,14 @@ export default function CampaignsPage() {
         </div>
       </section>
 
+      <section className="w-full">
+        <CampaingStatsChart data={campaigns}>
+
+        </CampaingStatsChart>
+      </section>
+
       {/* This hides the table on mobile devices */}
-      <section className="hidden md:block">
+      <section className="w-full mt-8">
         <CampaignsTable data={campaigns} />
       </section>
 
